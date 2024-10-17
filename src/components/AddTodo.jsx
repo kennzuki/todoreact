@@ -1,12 +1,22 @@
 import { useState } from "react";
 
 const AddTodo = () => {
-
-  const [addTodos, setAddTodos] = useState('')
+const [inputText,setInputText]=useState('')
+  const [addTodos, setAddTodos] = useState([])
   const [priority,setPriority]=useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (inputText.trim()) {
+      const newTodo = {
+        id: Date.now(),
+        text: inputText.trim(),
+        completed:false
+      }
+      
+      setAddTodos([...addTodos, newTodo])
+      setInputText('')
+   }
     
 }
 
@@ -17,8 +27,8 @@ const AddTodo = () => {
         type='text'
         className='border w-full p-4 rounded-xl m-12'
         placeholder='Add'
-        value={addTodos}
-        onChange={(e)=>setAddTodos(e.target.value)}
+        value={inputText}
+        onChange={(e)=>setInputText(e.target.value)}
         />
         <select
           placeholder='priority'
